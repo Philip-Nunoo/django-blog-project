@@ -1,4 +1,6 @@
 # Django settings for myblog project.
+import os
+PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 import dj_database_url
 
 DEBUG = True
@@ -11,14 +13,9 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-         'default': dj_database_url.config(default="sqlite:/blog_dev.db"),
-#        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', #'mysql', #'sqlite3' or 'oracle'.
-#         'NAME': 'blog_dev.db',                      # Or path to database file if #using #sqlite3.
-#        'USER': '',                      # Not used with sqlite3.
-#        'PASSWORD': '',                  # Not used with sqlite3.
-#        'HOST': '',                      # Set to empty string for localhost. Not #used with sqlite3.
-#        'PORT': '',                      # Set to empty string for default. Not #used with sqlite3.
-    
+    'default' :
+dj_database_url.config(default="sqlite:/blog_dev.db")
+
 }
 
 # Local time zone for this installation. Choices can be found here:
@@ -82,7 +79,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'y*&amp;5=sbt6e**ifmlbehvrw=c2k0g-4wp7^j@q5(9ltt#(r+u#d'
+SECRET_KEY = 'qn6tl84!%hpggaez6^bk1u)6i#)@5wx%ff34iwj+9!7!#c2^8u'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
