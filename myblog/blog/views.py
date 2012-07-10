@@ -28,18 +28,19 @@ def post_list(request):
 
 def post_detail(request, id, showComments=False):
     post_list = Post.objects.filter(id = id)
+    comments=''
     response = "<fieldset style='width:300px;'><legend><b>Post</b></legend> "
     if post_list:   #checks if the query returned a result
         for p in post_list:
             response+="Post with:<br/><b>Title </b><br/><input style='color: black' disabled type='text' value='"+str(p.title)+"'/>"
-            response+="<br/><b>Author </b><input style='color: black' disabled type='text' value='"+str(p.author)+"'/>"
+            response+="<br/><b>Author </b><br/><input style='color: black' disabled type='text' value='"+str(p.author)+"'/>"
             response+="<br/><b>Date Created: </b><input style='color: black' disabled type='text' value='"+str(p.date_created)+"'/>"
             response+="<br/><b>Post:</b><br/><textarea rows='2' cols='20' disabled style='color: black'>"+str(p.post)+"</textarea>"
             print type(showComments)
             if(showComments==u'True'):
                 comments_list = Comment.objects.filter(post = id)
                 for q in comments_list:
-                    comments ="<fieldset style='width:300px;'><legend><b>Comments</b></legend><b>Comments:</b><br/><textarea style='color: black' rows='2' cols='20' disabled>"+str(q.comment)+"</textarea></fieldset>"
+                    comments +="<fieldset style='width:300px;'><legend><b>Comments</b></legend><br/><textarea style='color: black' rows='2' cols='20' disabled>"+str(q.comment)+"</textarea></fieldset>"
                 
                 response+=comments
     else:
@@ -48,7 +49,15 @@ def post_detail(request, id, showComments=False):
     return HttpResponse(response)
     
 def post_search(request, term):
-    response = "post_search"
+    search_list = Post.objects.filter(post__icontains=term)
+    response = "The following posts contain the search item of "+str(term)+"<ol>"
+    if search_list:
+        for p in search_list:
+            response += "<li>"+str(p.title)+" written by&nbsp"+str(p.author)+"</li>"
+    
+        response +="</ol>"
+    else:
+        response += "<li>The post has no item as: <b>"+str(term)+"</li>"
     return HttpResponse(response)
 
 def home(request):
