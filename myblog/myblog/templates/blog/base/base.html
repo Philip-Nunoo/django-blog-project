@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>Personal</title>
+<style type="text/css">
+textarea {
+    resize= none;
+}
+
+#leftnav{
+    width: 180px;
+    height: 800px;
+    float: left;
+    background-color: #00FFCC;
+}
+
+#header {
+    padding-top: 20px;
+    text-align: center;
+    color: black;
+    font-size: 40px;
+    background-color:#CCFF66;
+    height: 80px;
+}
+
+</style>
+</head>
+<body>
+<div id="header">&nbspMy Blog&nbsp</div>
+<a href="/blog/posts/">Show All Post</a>
+<div id="leftnav">&nbsp;</div>
+<div id="content">{%block contents%}Hello This is my blog{%endblock%}</div>
+</body>
+</html>

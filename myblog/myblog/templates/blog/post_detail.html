@@ -1,0 +1,16 @@
+{%extends 'base/base.html' %}
+{% block contents %}
+    <fieldset style='width:220px'><legend><b>Post</b></legend>
+    {% for p in post %}
+        Title <input style='color: black;' disabled type='text' value='{{p.title}}' />
+        Author <input style='color: black;' disabled type='text' value='{{p.author}}' />
+        Date created <input style='color: black;' disabled type='text' value='{{p.date_created}}' />
+        Post <textarea rows='5' cols='30' style='color: black;' disabled />{{p.post}}</textarea>
+    {%endfor%}
+    </fieldset>
+    {% if comments %}
+        {%for p in comments%}
+            <fieldset style='width:300px' ><legend><b>Comments</b></legend>Author : {{p.author}}<textarea style='color: black' rows='5' cols='40' disabled>{{p.comment}}</textarea></fieldset>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

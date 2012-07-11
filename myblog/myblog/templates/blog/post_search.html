@@ -1,0 +1,15 @@
+{%extends 'base/base.html'%}
+{%block contents%}
+    Results for "{{term}}":<br/>
+        {%if search%}
+            <ul>
+            {%for p in search%}
+            <li><span style="color: blue">Title: </span>{{p.title}}
+                <span style="color: blue">Written by: </span>{{p.author}}
+            </li>
+            {%endfor%}
+            </ul>
+        {%else%}
+            <span style='color: red'>No results found!!</span>
+        {%endif%}
+{%endblock%}
