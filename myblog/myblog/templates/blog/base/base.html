@@ -1,33 +1,47 @@
 <html>
 <head>
 <title>Personal</title>
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css"/>
 <style type="text/css">
 textarea {
     resize= none;
 }
+textarea {
+    resize: none;
+}
 
 #leftnav{
-    width: 180px;
-    height: 800px;
+    width: 15%;
+    height: 100%;
     float: left;
     background-color: #00FFCC;
 }
 
 #header {
-    padding-top: 20px;
+    padding-top: 10px;
     text-align: center;
     color: black;
-    font-size: 40px;
     background-color:#CCFF66;
-    height: 80px;
+}
+
+#content {
+    padding:12px;
+    float: left;
+    }
+
+#search{
+    float: right;
 }
 
 </style>
 </head>
 <body>
-<div id="header">&nbspMy Blog&nbsp</div>
-<a href="/blog/posts/">Show All Post</a>
-<div id="leftnav">&nbsp;</div>
-<div id="content">{%block contents%}Hello This is my blog{%endblock%}</div>
+<div id="header">&nbsp<h1>My Blog</h1>&nbsp<br/><div id="search">Searh for item: <input type="text" cols="5"/></div></div>
+
+<div id="leftnav">&nbsp;<a href="/blog">HOME</a></div>
+<div id="content"><a href="/blog/posts/">Show All Post</a>&nbsp;&nbsp;
+{%block contents%}
+
+<br/>Hello This is my blog{%endblock%}</div>
 </body>
 </html>

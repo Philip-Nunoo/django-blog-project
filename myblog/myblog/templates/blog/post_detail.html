@@ -1,5 +1,6 @@
 {%extends 'base/base.html' %}
 {% block contents %}
+    <a href="../{{post.id}}True">Show comments</a>
     <fieldset style='width:220px'><legend><b>Post</b></legend>
     {% for p in post %}
         Title <input style='color: black;' disabled type='text' value='{{p.title}}' />
