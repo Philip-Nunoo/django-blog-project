@@ -14,7 +14,37 @@ from django.template import Context, loader
 from django.http import HttpResponse
 from models import Post, Comment
 from django.shortcuts import render_to_response
+from django.forms import ModelForm
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseRedirect
 
+#####Class for Form Comments####
+class CommentForm(ModelForm):
+    class Meta:
+        exclude=['post']
+        model = Comment
+
+####View to edit comment####
+@csrf_exempt    #what is csrf_exempt if we don't Django gives us a security error
+def edit_comment(request, id):
+    comment_edit = Comment.objects.get(id = id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(request.path)
+    else:
+        form = CommentForm(instance = comment_edit)
+
+###########################################################
+    my_temp=loader.get_template('edit_comment.html')
+    my_context=Context({
+            'edit':comment_edit,
+            'form':form,
+        })
+    return HttpResponse(my_temp.render(my_context))
+
+####View to list All Posts#####
 def post_list(request):
     post_list = Post.objects.all()
     my_temp = loader.get_template('post_list.html')
@@ -24,7 +54,19 @@ def post_list(request):
         
     return HttpResponse(my_temp.render(my_context))
 
+#####View for Details of post#####
+@csrf_exempt    #what is csrf_exempt if we don't Django gives us a security error
 def post_detail(request, id, showComments=False):
+    if request.method == "POST":
+        comment = Comment(post = target_post)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(request.path)
+    else:
+        form = CommentForm()
+
+    #################################################
     post_list = Post.objects.filter(id = id)
 
     my_temp = loader.get_template('post_detail.html')
@@ -33,6 +75,7 @@ def post_detail(request, id, showComments=False):
         my_context = Context({
             'post': post_list,
             'comments': comments_list,
+            'form': form
             })
         return HttpResponse(my_temp.render(my_context))
     else:
@@ -40,7 +83,8 @@ def post_detail(request, id, showComments=False):
             'post': post_list,
             })
         return HttpResponse(my_temp.render(my_context))
-    
+
+#####Searching Through Post#######
 def post_search(request, term):
     search_list = Post.objects.filter(post__icontains=term)
 
@@ -51,5 +95,6 @@ def post_search(request, term):
         })
     return HttpResponse(my_temp.render(my_context))
 
+#####View for the Home url#####
 def home(request):
     return render_to_response('base/base.html',{})

@@ -1,17 +1,29 @@
 {%extends 'base/base.html' %}
 {% block contents %}
-    <a href="../{{post.id}}True">Show comments</a>
+    {% for q in post %}
+    <a href="/blog/posts/{{q.id}}/True">Show comments</a>
+    {%endfor%}
+    {%for q in post %}
+    <a href="/blog/posts/{{q.id}}">Hide comments</a>
+    {%endfor%}
     <fieldset style='width:220px'><legend><b>Post</b></legend>
     {% for p in post %}
-        Title <input style='color: black;' disabled type='text' value='{{p.title}}' />
-        Author <input style='color: black;' disabled type='text' value='{{p.author}}' />
-        Date created <input style='color: black;' disabled type='text' value='{{p.date_created}}' />
-        Post <textarea rows='5' cols='30' style='color: black;' disabled />{{p.post}}</textarea>
+        <span class="new">Title:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{{p.title}}<br/>
+        <span class='new'>Author:&nbsp;&nbsp;</span>{{p.author}}<br/>
+        <span class='new'>Created: </span>{{p.date_created}}<br/>
+        <fieldset style='width: 300px'><legend><span class='new'>Content</span></legend>{{p.post}}</fieldset>
     {%endfor%}
     </fieldset>
     {% if comments %}
+        <h3 style="color: #33FFFF">Comments</h3>
         {%for p in comments%}
-            <fieldset style='width:300px' ><legend><b>Comments</b></legend>Author : {{p.author}}<textarea style='color: black' rows='5' cols='40' disabled>{{p.comment}}</textarea></fieldset>
+            <fieldset style='width: 300px' ><legend><span class="new">By</span> {{p.author}}</legend>{{p.comment}}<br/><a href="/blog/comments/{{p.id}}/edit" title="Edit"><i class="icon-edit"></i></a></fieldset>
         {% endfor %}
+    <div>
+        <form method='post' action="">
+            {{form.as_p}}
+            <input type="submit" name="submit" value="Add">
+        </form>
+    <div>
     {% endif %}
 {% endblock %}
