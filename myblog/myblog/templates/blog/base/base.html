@@ -2,68 +2,82 @@
 <head>
 <title>Personal</title>
 <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap-responsive.css"/>
 <style type="text/css">
-textarea {
-    resize= none;
-}
-textarea {
-    resize: none;
+
+.container{
+    width: 75%;
+    margin-top: 10px;
 }
 
-#leftnav{
-    width: 18%;
-    height: 100%;
-    float: left;
-    border-right: black solid 2px;
+.span11 {
+    padding: 0;
+    margin: 0;
+    font-size: 350%;
+    font-weight: normal;
+    font-style : italic;
+    color: #8CD749;
+    font-family: "Trebuchet MS", verdana, arial, sans-serif;
 }
 
-#leftnav ul li{
+.span2 a{
+    padding: 2px 0 2px 0;
+    background-color: #8CD749;
+    border-bottom: #DDDDDD solid 2px;
     display: block;
 }
 
-#lefnav ul li:hover{
-    background-color: brown;
-    border-right: black 2px solid;
+.span2 a:hover{
+    text-decoration: none;
+    background-color: #DDDDDD;
+    color: white;
 }
 
-#header {
-    margin-top: none;
-    height: 7%;
-    color: black;
-    background-color:#FFCC33;
+.span10 {
+    padding-right: 3px;
 }
-
-#content {
-    padding:10px;
-    float: left;
-    }
-
-.new {
-    color: #6600FF;
-}
-
-#search{
-    float: right;
-    padding-right: 5px;
-    padding-top: 10px;
-}
-
 </style>
 </head>
 <body>
-<div id="header"">
+<div class="container" style="height: 11%;">
+    <div class="row-fluid">
+        <div class="span11">
+            <h1>My Blog</h1>
+        </div>
+        <div class="span1" style="background-image: /static/images/leaf.png">
+            <img src="/static/images/leaf.png" height="70px" width="92px">&nbsp;
+        </div>
+    </div>
+</div>
+<div class="container">
+<div class="row-fluid">
+    <div class="span2" style="background-color: green">
+        Navigation&nbsp;
+        <a href="/blog">Home</a>
+        <a href="/blog/posts/">Show All Posts</a>
+        <a href="#">About Me</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="span10">
+        {% block contents %}
+            <P>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</P>
+<P>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</P>
+<P>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</P>
+<P>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</P>
+<P>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</P> 
+
+		{%endblock%}&nbsp;
+    </div>
+</div>
+</div>
+        <!--<div id="header"">
     <h1 style="color: white; background-color:#FFCC33;">My Blog</h1>
 </div>
 <div id="leftnav">
     <ul><li><a href="/blog">HOME</a></li>
         <li><a href="/blog/posts/">Show all post</a></li>
     </ul>
-</div>
-<div id="content">
-    {%block contents%}
-        Hello This is my blog
-    {%endblock%}
-</div>
+</div>-->
     
 
 </body>

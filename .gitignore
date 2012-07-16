@@ -11,7 +11,7 @@
 
 
 #and now the local sqlite database
-*.db
-*.sqlite
+#*.db
+#*.sqlite
 
 
