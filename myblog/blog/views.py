@@ -28,8 +28,11 @@ class CommentForm(ModelForm):
 @csrf_exempt    #what is csrf_exempt if we don't Django gives us a security error
 def edit_comment(request, id):
     comment_edit = Comment.objects.get(id = id)
+    r_post=comment_edit.post
+    target_post = Post.objects.get(id=r_post.id)
     if request.method == "POST":
-        form = CommentForm(request.POST)
+        comment = Comment(post=target_post)
+        form = CommentForm(request.POST,instance=comment)
         if form.is_valid():
             form.save()
         return HttpResponseRedirect(request.path)
@@ -57,9 +60,13 @@ def post_list(request):
 #####View for Details of post#####
 @csrf_exempt    #what is csrf_exempt if we don't Django gives us a security error
 def post_detail(request, id, showComments=False):
+    post_list = Post.objects.filter(id = id)
+    target_post=post_list.post
+    #target_post = Post.objects.get(id=id)
+    
     if request.method == "POST":
-        comment = Comment(post = target_post)
-        form = CommentForm(request.POST)
+        comment = Comment(post=target_post)
+        form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
             form.save()
         return HttpResponseRedirect(request.path)
@@ -67,7 +74,6 @@ def post_detail(request, id, showComments=False):
         form = CommentForm()
 
     #################################################
-    post_list = Post.objects.filter(id = id)
 
     my_temp = loader.get_template('post_detail.html')
     if(showComments==u'True'):

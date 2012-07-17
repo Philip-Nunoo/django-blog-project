@@ -1,29 +1,36 @@
 {%extends 'base/base.html' %}
 {% block contents %}
-    {% for q in post %}
-    <a href="/blog/posts/{{q.id}}/True">Show comments</a>
+{% for q in post %}
+	<a href="/blog/posts/{{q.id}}/True">Show comments</a>
+{%endfor%}
+{%for q in post %}
+	<a href="/blog/posts/{{q.id}}">Hide comments</a>
+{%endfor%}
+
+	<fieldset><legend><b>Post</b></legend>
+	{% for p in post %}
+		<p><b>Title: </b>{{p.title}}
+		<br/><b>Author: </b>{{p.author}}
+		<br/><b>Date Created: </b>{{p.date_created}}
+		<br/><b>Date Modified: </b>{{p.date_updated}}
+		<br/><b>Content</b><br/>{{p.post}}
     {%endfor%}
-    {%for q in post %}
-    <a href="/blog/posts/{{q.id}}">Hide comments</a>
-    {%endfor%}
-    <fieldset style='width:220px'><legend><b>Post</b></legend>
-    {% for p in post %}
-        <span class="new">Title:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{{p.title}}<br/>
-        <span class='new'>Author:&nbsp;&nbsp;</span>{{p.author}}<br/>
-        <span class='new'>Created: </span>{{p.date_created}}<br/>
-        <fieldset style='width: 300px'><legend><span class='new'>Content</span></legend>{{p.post}}</fieldset>
-    {%endfor%}
-    </fieldset>
+	</fieldset>
     {% if comments %}
-        <h3 style="color: #33FFFF">Comments</h3>
-        {%for p in comments%}
-            <fieldset style='width: 300px' ><legend><span class="new">By</span> {{p.author}}</legend>{{p.comment}}<br/><a href="/blog/comments/{{p.id}}/edit" title="Edit"><i class="icon-edit"></i></a></fieldset>
+    	<b>Comments</b></br>
+    	{% for p in comments %}
+    		<p class="block">
+ 			<b>Author: </b>{{p.author}}
+ 			<br/><b>Date Created: </b>{{p.date_created}}
+ 			<br/><b>Date Modified: </b>{{p.date_updated}}
+ 			<br/><b>Body </b><br/>{{p.comment}}
+ 			<br/><a href="/blog/comments/{{p.id}}/edit" title="Edit"><i class="icon-edit"></i></a>
         {% endfor %}
     <div>
         <form method='post' action="">
             {{form.as_p}}
             <input type="submit" name="submit" value="Add">
         </form>
-    <div>
+    </div>
     {% endif %}
 {% endblock %}

@@ -2,12 +2,11 @@
 {% block contents%}
 <ul>
 {% for p in post %}
-    <a href="../posts/{{p.id}}" title="Written by: {{p.author}}"><h4>{{p.title}}</h4></a>
-    <li>Date Created: {{p.date_created}}</li>
-    <li>Last Updated: {{p.date_updated}}</li>
-    <li>Content : {{p.post}}</li><br/>
-    
-
+   <p>
+   	<a href="/blog/posts/{{p.id}}"><h3>{{p.title}}</h3></a>
+		<br/><b>Author: </b>{{p.author}}
+		<br/><b>Body </b><br/>{{p.post}}
+	</p>
 {% endfor %}
 </ul>
 {% endblock %}
