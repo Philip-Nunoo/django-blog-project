@@ -21,25 +21,21 @@ from django.http import HttpResponseRedirect
 #####Class for Form Comments####
 class CommentForm(ModelForm):
     class Meta:
-        exclude=['post']
+        exclude=['post','author']
         model = Comment
 
 ####View to edit comment####
 @csrf_exempt    #what is csrf_exempt if we don't Django gives us a security error
 def edit_comment(request, id):
     comment_edit = Comment.objects.get(id = id)
-    r_post=comment_edit.post
-    target_post = Post.objects.get(id=r_post.id)
     if request.method == "POST":
-        comment = Comment(post=target_post)
-        form = CommentForm(request.POST,instance=comment)
+        form = CommentForm(request.POST,instance=comment_edit)
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(request.path)
+            return HttpResponseRedirect("/blog/posts/"+str(comment_edit.post.id))
     else:
         form = CommentForm(instance = comment_edit)
-
-###########################################################
+        
     my_temp=loader.get_template('edit_comment.html')
     my_context=Context({
             'edit':comment_edit,
@@ -59,36 +55,26 @@ def post_list(request):
 
 #####View for Details of post#####
 @csrf_exempt    #what is csrf_exempt if we don't Django gives us a security error
-def post_detail(request, id, showComments=False):
-    post_list = Post.objects.filter(id = id)
-    target_post=post_list.post
-    #target_post = Post.objects.get(id=id)
+def post_detail(request, id, showComments= False):
+    post_list = Post.objects.get(id = id)
+    comments_list = Comment.objects.filter(post = id)
+    comment = Comment(post = post_list)
     
     if request.method == "POST":
-        comment = Comment(post=target_post)
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(request.path)
+            return HttpResponseRedirect(request.path)
     else:
         form = CommentForm()
-
-    #################################################
-
-    my_temp = loader.get_template('post_detail.html')
-    if(showComments==u'True'):
-        comments_list = Comment.objects.filter(post = id)
-        my_context = Context({
-            'post': post_list,
-            'comments': comments_list,
-            'form': form
-            })
-        return HttpResponse(my_temp.render(my_context))
-    else:
-        my_context = Context({
-            'post': post_list,
-            })
-        return HttpResponse(my_temp.render(my_context))
+        
+    my_context = Context({
+        'post': post_list,
+        'comments': comments_list,
+        'form': form,
+        'showComments': showComments,
+        })
+    return render_to_response('post_detail.html',my_context)
 
 #####Searching Through Post#######
 def post_search(request, term):

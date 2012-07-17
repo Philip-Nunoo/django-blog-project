@@ -1,22 +1,16 @@
 {%extends 'base/base.html' %}
 {% block contents %}
-{% for q in post %}
-	<a href="/blog/posts/{{q.id}}/True">Show comments</a>
-{%endfor%}
-{%for q in post %}
-	<a href="/blog/posts/{{q.id}}">Hide comments</a>
-{%endfor%}
+	<a href="/blog/posts/{{post.id}}/True">Show comments</a>
+	<a href="/blog/posts/{{post.id}}">Hide comments</a>
 
 	<fieldset><legend><b>Post</b></legend>
-	{% for p in post %}
-		<p><b>Title: </b>{{p.title}}
-		<br/><b>Author: </b>{{p.author}}
-		<br/><b>Date Created: </b>{{p.date_created}}
-		<br/><b>Date Modified: </b>{{p.date_updated}}
-		<br/><b>Content</b><br/>{{p.post}}
-    {%endfor%}
+		<p><b>Title: </b>{{post.title}}
+		<br/><b>Author: </b>{{post.author}}
+		<br/><b>Date Created: </b>{{post.date_created}}
+		<br/><b>Date Modified: </b>{{post.date_updated}}
+		<br/><b>Content</b><br/>{{post.post}}
 	</fieldset>
-    {% if comments %}
+    {% if showComments == True%}
     	<b>Comments</b></br>
     	{% for p in comments %}
     		<p class="block">

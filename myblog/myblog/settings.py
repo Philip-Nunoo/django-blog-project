@@ -105,8 +105,10 @@ ROOT_URLCONF = 'myblog.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'myblog.wsgi.application'
 
+
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, 'templates/blog')
+    os.path.join(PROJECT_ROOT, 'templates/blog'),
+    os.path.join(PROJECT_ROOT, 'templates/reg')
     #os.path.join(SITE_ROOT,'templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
@@ -115,6 +117,7 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'blog',
+    'reg',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
